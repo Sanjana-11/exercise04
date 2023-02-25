@@ -1,27 +1,37 @@
 package exercise04;
 
-import java.util.HashMap;
-import java.util.Map.Entry;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 class BrowserHistory {
-	private HashMap<String, Integer> history = new HashMap<>();
+	ArrayList<String> history = new ArrayList<>();
+	int visitCount = 1;
+	String firstEntry;
 
 	public void visitPage(String url) {
-		if (history.containsKey(url)) {
-			int visitCount = history.get(url);
-			history.put(url, visitCount + 1);
-		} else {
-			history.put(url, 1);
+		firstEntry = url + "##" + 1;
+
+		if(history.contains(firstEntry)) {
+			for(String page : history) {
+				if(page.startsWith(url)) {
+					String newUrl = url + "##" + (visitCount+1);
+					history.set(history.indexOf(page), newUrl);
+				}
+			}
+
 		}
+		else {
+			history.add(firstEntry);
+		}
+		
 	}
+
 
 	public void displayHistory() {
-		for (Entry<String, Integer> object : history.entrySet()) {
-			System.out.println(object.getKey() + " ## " + object.getValue());
+		for (String page : history) {
+			System.out.println(page);
 		}
 	}
-
 }
 
 public class Main {
