@@ -11,21 +11,19 @@ class BrowserHistory {
 	public void visitPage(String url) {
 		firstEntry = url + "##" + 1;
 
-		if(history.contains(firstEntry)) {
-			for(String page : history) {
-				if(page.startsWith(url)) {
-					String newUrl = url + "##" + (visitCount+1);
+		if (history.contains(firstEntry)) {
+			for (String page : history) {
+				if (page.startsWith(url)) {
+					String newUrl = url + "##" + (visitCount + 1);
 					history.set(history.indexOf(page), newUrl);
 				}
 			}
 
-		}
-		else {
+		} else {
 			history.add(firstEntry);
 		}
-		
-	}
 
+	}
 
 	public void displayHistory() {
 		for (String page : history) {
