@@ -6,22 +6,18 @@ import java.util.Scanner;
 class BrowserHistory {
 	ArrayList<String> history = new ArrayList<>();
 	int visitCount = 1;
-	String firstEntry;
 
 	public void visitPage(String url) {
-		firstEntry = url + "##" + 1;
-
-		if (history.contains(firstEntry)) {
-			for (String page : history) {
-				if (page.startsWith(url)) {
-					String newUrl = url + "##" + (visitCount + 1);
-					history.set(history.indexOf(page), newUrl);
-				}
-			}
-
-		} else {
-			history.add(firstEntry);
-		}
+		visitCount = 1;
+        for(String page : history) {
+            if (page.startsWith(url)) {
+                int countIndex = url.length() + 4; 
+                visitCount = Integer.parseInt(page.substring(countIndex)) + 1;
+                history.remove(page);
+                break;
+            }
+        }
+        history.add(url + " ## " + visitCount);
 
 	}
 
