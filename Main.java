@@ -5,25 +5,28 @@ import java.util.Scanner;
 
 class BrowserHistory {
 	ArrayList<String> history = new ArrayList<>();
-	int visitCount = 1;
 
 	public void visitPage(String url) {
-		visitCount = 1;
-        for(String page : history) {
-            if (page.startsWith(url)) {
-                int countIndex = url.length() + 4; 
-                visitCount = Integer.parseInt(page.substring(countIndex)) + 1;
-                history.remove(page);
-                break;
-            }
-        }
-        history.add(url + " ## " + visitCount);
+		int visitCount = 1;
+		int addIndex = 0;
+
+		for (String page : history) {
+			if (page.startsWith(url + " ## ")) {
+				int countIndex = url.length() + 4;
+				visitCount = Integer.parseInt(page.substring(countIndex)) + 1;
+				addIndex = history.indexOf(page);
+				history.remove(page);
+				break;
+			}
+		}
+
+		history.add(addIndex, (url + " ## " + visitCount));
 
 	}
 
 	public void displayHistory() {
-		for (String page : history) {
-			System.out.println(page);
+		for (int i = history.size() - 1; i >= 0; i--) {
+			System.out.println(history.get(i));
 		}
 	}
 }
